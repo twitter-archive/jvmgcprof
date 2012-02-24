@@ -1,0 +1,37 @@
+#!/bin/bash
+
+dir=$(dirname $(readlink $0 || echo $0))
+if [ "$(uname)" == 'Darwin' ]; then
+    export DYLD_LIBRARY_PATH=$dir:$DYLD_LIBRARY_PATH
+elif [ "$(uname)" == 'Linux' ]; then
+    export LD_LIBRARY_PATH=$dir:$LD_LIBRARY_PATH
+fi
+flags=""
+
+while true
+do
+	case "$1" in
+	-p)
+		flags="$flags -Dgcprof.period=$2"
+		shift 2
+		;;
+	-n)
+		flags="$flags -Dgcprof.nwork=$2"
+		shift 2
+		;;
+	-no)
+		flags="$flags -Dgcprof.nostrichwork=$2"
+		shift 2
+		;;
+	-w)
+		flags="$flags -Dgcprof.nwarmup=$2"
+		shift 2
+		;;
+	*)
+		break
+	esac
+done
+
+java=$1; shift
+
+$java -Xbootclasspath/a:$dir -agentlib:gcprof $flags "$@"
