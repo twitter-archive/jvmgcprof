@@ -2,9 +2,9 @@ CC=gcc
 OS=$(shell uname -s | tr '[A-Z]' '[a-z]')
 
 ifeq ("$(OS)", "darwin")
-JAVA_HOME=$(shell /usr/libexec/java_home)
-JAVA_HEADERS=/System/Library/Frameworks/JavaVM.framework/Versions/A/Headers
-#JAVA_HEADERS=/Developer/SDKs/MacOSX10.6.sdk/System/Library/Frameworks/JavaVM.framework/Versions/1.6.0/Headers/
+JAVA_HOME?=$(shell /usr/libexec/java_home)
+JAVA_HEADERS?=/System/Library/Frameworks/JavaVM.framework/Versions/A/Headers
+#JAVA_HEADERS?=/Developer/SDKs/MacOSX10.6.sdk/System/Library/Frameworks/JavaVM.framework/Versions/1.6.0/Headers/
 PLATFORM_LDFLAGS=-mimpure-text
 endif
 
