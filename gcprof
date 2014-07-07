@@ -34,4 +34,4 @@ done
 
 java=$1; shift
 
-$java -Xbootclasspath/a:$dir -agentlib:gcprof $flags "$@"
+$java -Xbootclasspath/a:$dir -agentpath:libgcprof.jnilib $flags "$@"
